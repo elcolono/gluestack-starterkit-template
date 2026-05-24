@@ -1,205 +1,122 @@
 "use client";
 
 import type { ComponentProps, ReactNode } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import type { TextInputProps, ViewStyle } from "react-native";
-import { ArrowRight, CheckCircle2 } from "lucide-react-native";
+import type { TextInputProps } from "react-native";
 
-import { buttonRecipe, cardRecipe, inputRecipe } from "./gluestack-recipes";
-import { colors, radii, spacing } from "./theme";
+import { Badge, BadgeText } from "./components/ui/badge";
+import { Box } from "./components/ui/box";
+import {
+  Button as GluestackButton,
+  ButtonText
+} from "./components/ui/button";
+import { Card as GluestackCard } from "./components/ui/card";
+import { GluestackUIProvider } from "./components/ui/gluestack-ui-provider";
+import { Heading as GluestackHeading } from "./components/ui/heading";
+import {
+  Input as GluestackInput,
+  InputField
+} from "./components/ui/input";
+import { Text as GluestackText } from "./components/ui/text";
+import { VStack } from "./components/ui/vstack";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
-type ButtonProps = ComponentProps<typeof Pressable> & {
+type ButtonProps = Omit<
+  ComponentProps<typeof GluestackButton>,
+  "children" | "variant" | "action"
+> & {
   children: ReactNode;
   variant?: ButtonVariant;
 };
 
-export function Button({ children, variant = "primary", style, ...props }: ButtonProps) {
-  const recipe = buttonRecipe({ variant });
+const buttonVariantMap = {
+  primary: { action: "primary", variant: "solid" },
+  secondary: { action: "secondary", variant: "outline" },
+  ghost: { action: "primary", variant: "link" }
+} as const;
+
+export function Button({
+  children,
+  variant = "primary",
+  ...props
+}: ButtonProps) {
+  const mappedVariant = buttonVariantMap[variant];
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      testID={recipe}
-      style={({ pressed }) => [
-        styles.button,
-        variantStyles[variant],
-        pressed && styles.buttonPressed,
-        typeof style === "function" ? style({ pressed }) : style
-      ]}
+    <GluestackButton
+      action={mappedVariant.action}
+      variant={mappedVariant.variant}
       {...props}
     >
-      <Text style={[styles.buttonText, variant !== "primary" && styles.buttonTextDark]}>
-        {children}
-      </Text>
-      {variant === "primary" ? <ArrowRight color={colors.white} size={18} /> : null}
-    </Pressable>
+      <ButtonText>{children}</ButtonText>
+    </GluestackButton>
   );
 }
 
-type CardProps = ComponentProps<typeof View> & {
+type CardProps = Omit<ComponentProps<typeof GluestackCard>, "variant"> & {
   tone?: "default" | "accent";
 };
 
-export function Card({ children, tone = "default", style, ...props }: CardProps) {
-  const recipe = cardRecipe({ tone });
-
+export function Card({ tone = "default", ...props }: CardProps) {
   return (
-    <View
-      testID={recipe}
-      style={[styles.card, tone === "accent" && styles.cardAccent, style]}
-      {...props}
-    >
-      {children}
-    </View>
-  );
-}
-
-export function Input(props: TextInputProps) {
-  const recipe = inputRecipe({ state: "default" });
-
-  return (
-    <TextInput
-      testID={recipe}
-      placeholderTextColor={colors.muted}
-      style={styles.input}
+    <GluestackCard
+      size="md"
+      variant={tone === "accent" ? "filled" : "elevated"}
       {...props}
     />
   );
 }
 
-type TextProps = ComponentProps<typeof Text>;
-
-export function Heading({ style, ...props }: TextProps) {
-  return <Text style={[styles.heading, style]} {...props} />;
+export function Input({ style, ...props }: TextInputProps) {
+  return (
+    <GluestackInput size="md" variant="outline">
+      <InputField style={style} {...props} />
+    </GluestackInput>
+  );
 }
 
-export function Body({ style, ...props }: TextProps) {
-  return <Text style={[styles.body, style]} {...props} />;
+type HeadingProps = ComponentProps<typeof GluestackHeading>;
+
+export function Heading({ size = "3xl", ...props }: HeadingProps) {
+  return <GluestackHeading size={size} {...props} />;
 }
 
-export function Eyebrow({ style, ...props }: TextProps) {
-  return <Text style={[styles.eyebrow, style]} {...props} />;
+type TextProps = ComponentProps<typeof GluestackText>;
+
+export function Body({ size = "md", ...props }: TextProps) {
+  return <GluestackText size={size} {...props} />;
+}
+
+export function Eyebrow({ size = "sm", ...props }: TextProps) {
+  return <GluestackText bold size={size} {...props} />;
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  return <View style={styles.provider}>{children}</View>;
+  return (
+    <GluestackUIProvider mode="light">
+      <Box className="flex-1 bg-background-0">{children}</Box>
+    </GluestackUIProvider>
+  );
 }
 
 export function StatusPill({ label }: { label: string }) {
   return (
-    <View style={styles.pill}>
-      <CheckCircle2 color={colors.accent} size={15} />
-      <Text style={styles.pillText}>{label}</Text>
-    </View>
+    <Badge action="info" className="self-start" variant="outline">
+      <BadgeText>{label}</BadgeText>
+    </Badge>
   );
 }
 
-export function Section({ children, style }: { children: ReactNode; style?: ViewStyle }) {
-  return <View style={[styles.section, style]}>{children}</View>;
+type SectionProps = ComponentProps<typeof VStack>;
+
+export function Section({
+  children,
+  space = "md",
+  ...props
+}: SectionProps) {
+  return (
+    <VStack space={space} {...props}>
+      {children}
+    </VStack>
+  );
 }
-
-const variantStyles = StyleSheet.create({
-  primary: {
-    backgroundColor: colors.ink,
-    borderColor: colors.ink
-  },
-  secondary: {
-    backgroundColor: colors.paper,
-    borderColor: colors.stroke
-  },
-  ghost: {
-    backgroundColor: "transparent",
-    borderColor: "transparent"
-  }
-});
-
-const styles = StyleSheet.create({
-  provider: {
-    flex: 1,
-    backgroundColor: colors.canvas
-  },
-  section: {
-    gap: spacing.md
-  },
-  button: {
-    minHeight: 48,
-    borderRadius: radii.md,
-    borderWidth: 1,
-    paddingHorizontal: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    gap: spacing.sm
-  },
-  buttonPressed: {
-    opacity: 0.82,
-    transform: [{ scale: 0.99 }]
-  },
-  buttonText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: "700"
-  },
-  buttonTextDark: {
-    color: colors.ink
-  },
-  card: {
-    borderRadius: radii.md,
-    borderWidth: 1,
-    borderColor: colors.stroke,
-    backgroundColor: colors.surface,
-    padding: spacing.lg,
-    gap: spacing.md
-  },
-  cardAccent: {
-    backgroundColor: colors.accentSoft,
-    borderColor: "#aad7ce"
-  },
-  input: {
-    minHeight: 48,
-    borderRadius: radii.md,
-    borderWidth: 1,
-    borderColor: colors.stroke,
-    backgroundColor: colors.paper,
-    paddingHorizontal: spacing.md,
-    color: colors.ink,
-    fontSize: 16
-  },
-  heading: {
-    color: colors.ink,
-    fontSize: 34,
-    lineHeight: 40,
-    fontWeight: "800"
-  },
-  body: {
-    color: colors.muted,
-    fontSize: 16,
-    lineHeight: 24
-  },
-  eyebrow: {
-    color: colors.brass,
-    fontSize: 12,
-    fontWeight: "800",
-    letterSpacing: 0,
-    textTransform: "uppercase"
-  },
-  pill: {
-    minHeight: 34,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: "#aad7ce",
-    backgroundColor: colors.white,
-    paddingHorizontal: spacing.md,
-    alignSelf: "flex-start",
-    alignItems: "center",
-    flexDirection: "row",
-    gap: spacing.xs
-  },
-  pillText: {
-    color: colors.ink,
-    fontSize: 13,
-    fontWeight: "700"
-  }
-});

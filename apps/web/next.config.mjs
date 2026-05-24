@@ -1,11 +1,18 @@
+import { withGluestackUI } from "@gluestack/ui-next-adapter";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
     "@repo/ui",
+    "@expo/html-elements",
+    "@gluestack-ui/core",
+    "@gluestack-ui/utils",
     "react-native",
     "react-native-web",
+    "nativewind",
+    "react-native-css-interop",
     "lucide-react-native",
-    "@gluestack-ui/nativewind-utils"
+    "@gluestack/ui-next-adapter"
   ],
   webpack: (config) => {
     config.resolve.alias = {
@@ -29,4 +36,4 @@ const nextConfig = {
   }
 };
 
-export default nextConfig;
+export default withGluestackUI(nextConfig);
