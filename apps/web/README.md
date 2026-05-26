@@ -2,6 +2,9 @@
 
 Next.js 15 web target for the Universal Next.js + Expo Template.
 
+Live preview:
+[universal-next-expo-template.vercel.app](https://universal-next-expo-template.vercel.app/)
+
 ## Commands
 
 ```bash

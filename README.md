@@ -4,6 +4,14 @@ A universal app template for building web and native product surfaces from one
 workspace. The web app runs on Next.js, the native app runs on Expo, and shared
 UI lives in local workspace packages powered by Gluestack UI and NativeWind.
 
+## Live Preview
+
+View the deployed template:
+[universal-next-expo-template.vercel.app](https://universal-next-expo-template.vercel.app/)
+
+When this repository is connected to Vercel, pull requests can also get their
+own Vercel Preview Deployment links for review.
+
 ## Stack
 
 - `apps/web` - Next.js 15 app with App Router
