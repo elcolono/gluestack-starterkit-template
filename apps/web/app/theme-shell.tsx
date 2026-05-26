@@ -28,7 +28,7 @@ function getResolvedTheme(): ResolvedTheme {
 }
 
 export function ThemeShell({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<ThemeMode>("system");
+  const [mode, setMode] = useState<ThemeMode>("dark");
 
   const toggleTheme = () => {
     const currentTheme = getResolvedTheme();
