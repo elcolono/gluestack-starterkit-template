@@ -17,7 +17,7 @@
     "@expo/html-elements": "^56.0.1",
     "@gluestack-ui/core": "3.0.20",
     "@gluestack-ui/utils": "3.0.21",
-    "lucide-react-native": "^0.510.0",
+    "lucide-react-native": "^1.16.0",
     "nativewind": "^4.2.4",
     "tailwindcss": "^3.4.19"
   },
