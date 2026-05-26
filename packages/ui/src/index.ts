@@ -1,5 +1,6 @@
 /// <reference types="nativewind/types" />
 
+export { Moon, Sun } from "lucide-react-native";
 export { Badge, BadgeIcon, BadgeText } from "./components/ui/badge";
 export { Box } from "./components/ui/box";
 export {

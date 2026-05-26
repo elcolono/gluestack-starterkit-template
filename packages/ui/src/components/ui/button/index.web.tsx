@@ -159,20 +159,40 @@ type IButtonProps = Omit<
   React.ComponentPropsWithoutRef<'button'>,
   'size'
 > &
-  VariantProps<typeof buttonStyle> & { className?: string };
+  VariantProps<typeof buttonStyle> & {
+    className?: string;
+    onPress?: React.MouseEventHandler<HTMLButtonElement>;
+  };
 
 const Button = React.forwardRef<HTMLButtonElement, IButtonProps>(
   (
-    { className, variant = 'solid', size = 'md', action = 'primary', type = 'button', ...props },
+    {
+      className,
+      variant = 'solid',
+      size = 'md',
+      action = 'primary',
+      type = 'button',
+      onClick,
+      onPress,
+      ...props
+    },
     ref
   ) => {
     const context = { action, size, variant };
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+      onClick?.(event);
+
+      if (!event.defaultPrevented) {
+        onPress?.(event);
+      }
+    };
 
     return (
       <ButtonContext.Provider value={context}>
         <button
           ref={ref}
           type={type}
+          onClick={handleClick}
           {...props}
           className={buttonStyle({ variant, size, action, class: className })}
         />

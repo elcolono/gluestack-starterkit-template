@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GluestackUIProvider } from "@repo/ui";
+import { ThemeShell } from "./theme-shell";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,11 +26,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} light h-full antialiased`}
-      style={{ colorScheme: "light" }}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body suppressHydrationWarning>
-        <GluestackUIProvider mode="light">{children}</GluestackUIProvider>
+        <ThemeShell>{children}</ThemeShell>
       </body>
     </html>
   );
