@@ -1,27 +1,15 @@
 /// <reference types="nativewind/types" />
 
-export {
-  AppProvider,
-  Body,
-  Button,
-  Card,
-  Eyebrow,
-  Heading,
-  Input,
-  Section,
-  StatusPill
-} from "./primitives";
-export { StarterModule } from "./starter-module";
-export { colors } from "./theme";
 export { Badge, BadgeIcon, BadgeText } from "./components/ui/badge";
 export { Box } from "./components/ui/box";
 export {
+  Button,
   ButtonGroup,
   ButtonIcon,
   ButtonSpinner,
   ButtonText
 } from "./components/ui/button";
-export { Card as GluestackCard } from "./components/ui/card";
+export { Card } from "./components/ui/card";
 export {
   Checkbox,
   CheckboxGroup,
@@ -41,13 +29,13 @@ export {
   FormControlLabelText
 } from "./components/ui/form-control";
 export { GluestackUIProvider } from "./components/ui/gluestack-ui-provider";
-export { Heading as GluestackHeading } from "./components/ui/heading";
+export { Heading } from "./components/ui/heading";
 export { HStack } from "./components/ui/hstack";
 export {
+  Input,
   InputField,
   InputIcon,
-  InputSlot,
-  Input as GluestackInput
+  InputSlot
 } from "./components/ui/input";
-export { Text as GluestackText } from "./components/ui/text";
+export { Text } from "./components/ui/text";
 export { VStack } from "./components/ui/vstack";

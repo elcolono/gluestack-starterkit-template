@@ -1,19 +1,19 @@
-import { AppProvider, Body, Card, Heading } from '@repo/ui';
 import { StyleSheet, View } from 'react-native';
+import { Card, GluestackUIProvider, Heading, Text } from '@repo/ui';
 
 export default function DetailsScreen() {
   return (
-    <AppProvider>
+    <GluestackUIProvider mode="light">
       <View style={styles.container}>
-        <Card>
-          <Heading style={styles.heading}>Shared module details</Heading>
-          <Body>
+        <Card size="md" variant="elevated">
+          <Heading size="xl" style={styles.heading}>Shared module details</Heading>
+          <Text>
             This Expo screen also consumes primitives from @repo/ui, keeping the mobile app aligned
             with the Next.js surface.
-          </Body>
+          </Text>
         </Card>
       </View>
-    </AppProvider>
+    </GluestackUIProvider>
   );
 }
 

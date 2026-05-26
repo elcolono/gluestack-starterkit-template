@@ -1,9 +1,10 @@
-import { AppProvider, StarterModule } from "@repo/ui";
+import { StarterModule } from "@repo/starter";
+import { Box } from "@repo/ui";
 
 export default function Home() {
   return (
-    <AppProvider>
+    <Box className="flex-1 bg-background-0">
       <StarterModule />
-    </AppProvider>
+    </Box>
   );
 }

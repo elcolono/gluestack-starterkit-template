@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { config } from './config';
 import { OverlayProvider } from '@gluestack-ui/core/overlay/creator';
 import { ToastProvider } from '@gluestack-ui/core/toast/creator';
-import { setFlushStyles } from '@gluestack-ui/utils/nativewind-utils';
+import { flush, setFlushStyles } from '@gluestack-ui/utils/nativewind-utils';
 import { script } from './script';
 
 const variableStyleTagId = 'nativewind-style';
@@ -69,7 +69,7 @@ export function GluestackUIProvider({
       const documentElement = document.documentElement;
       if (documentElement) {
         const head = documentElement.querySelector('head');
-        let style = head?.querySelector(`[id='${variableStyleTagId}']`);
+        let style = document.getElementById(variableStyleTagId);
         if (!style) {
           style = createStyle(variableStyleTagId);
           style.innerHTML = cssVariablesWithMode;
@@ -80,8 +80,17 @@ export function GluestackUIProvider({
   }, []);
 
   return (
-    <OverlayProvider>
-      <ToastProvider>{props.children}</ToastProvider>
-    </OverlayProvider>
+    <>
+      {flush()}
+      <script
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: `(${script.toString()})('${mode}')`,
+        }}
+      />
+      <OverlayProvider>
+        <ToastProvider>{props.children}</ToastProvider>
+      </OverlayProvider>
+    </>
   );
 }

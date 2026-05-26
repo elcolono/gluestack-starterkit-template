@@ -1,14 +1,12 @@
-import { AppProvider, Body, Card, Heading } from "@repo/ui";
+import { Box, Card, Heading, Text } from "@repo/ui";
 
 export default function NotFound() {
   return (
-    <AppProvider>
-      <main className="flex min-h-screen items-center justify-center p-6">
-        <Card>
-          <Heading size="xl">Page not found</Heading>
-          <Body>This route does not exist.</Body>
-        </Card>
-      </main>
-    </AppProvider>
+    <Box className="flex min-h-screen items-center justify-center bg-background-0 p-6">
+      <Card size="md" variant="elevated">
+        <Heading size="xl">Page not found</Heading>
+        <Text>This route does not exist.</Text>
+      </Card>
+    </Box>
   );
 }

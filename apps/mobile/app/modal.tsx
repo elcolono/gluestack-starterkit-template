@@ -1,22 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, View } from 'react-native';
 
-import { AppProvider, Body, Card, Heading } from '@repo/ui';
+import { Card, GluestackUIProvider, Heading, Text } from '@repo/ui';
 
 export default function ModalScreen() {
   return (
-    <AppProvider>
+    <GluestackUIProvider mode="light">
       <View style={styles.container}>
-        <Card>
-          <Heading style={styles.title}>Shared modal</Heading>
-          <Body>
+        <Card size="md" variant="elevated">
+          <Heading size="xl" style={styles.title}>Shared modal</Heading>
+          <Text>
             Modal content can use the same @repo/ui primitives as the tab screens and web app.
-          </Body>
+          </Text>
         </Card>
 
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       </View>
-    </AppProvider>
+    </GluestackUIProvider>
   );
 }
 

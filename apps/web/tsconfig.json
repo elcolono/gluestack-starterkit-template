@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@repo/starter": ["../../packages/starter/src/index.ts"],
+      "@repo/starter/*": ["../../packages/starter/src/*"],
       "@repo/ui": ["../../packages/ui/src/index.ts"],
       "@repo/ui/*": ["../../packages/ui/src/*"]
     }

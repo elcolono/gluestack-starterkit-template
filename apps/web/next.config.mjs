@@ -3,6 +3,7 @@ import { withGluestackUI } from "@gluestack/ui-next-adapter";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
+    "@repo/starter",
     "@repo/ui",
     "@expo/html-elements",
     "@gluestack-ui/core",
