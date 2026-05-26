@@ -1,6 +1,8 @@
 {
   "name": "codex-app",
   "version": "0.1.0",
+  "description": "Universal Next.js and Expo template with shared Gluestack UI packages.",
+  "license": "MIT",
   "private": true,
   "packageManager": "pnpm@11.1.3",
   "scripts": {

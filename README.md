@@ -22,6 +22,17 @@ pnpm --filter web typecheck
 pnpm lint
 ```
 
+## Repository Structure
+
+```text
+apps/
+  web/       Next.js app
+  mobile/    Expo app
+packages/
+  ui/        Shared Gluestack UI components
+  starter/   Shared starter screen
+```
+
 ## Development
 
 Run the web app:
@@ -51,3 +62,24 @@ packages, then be consumed by both Next.js and Expo targets.
 The template includes Gluestack light/dark mode support. The Next.js app uses
 the Gluestack provider at the root and renders a compact theme toggle inside the
 starter content header.
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](./CONTRIBUTING.md)
+before opening a pull request.
+
+Useful GitHub workflows:
+
+- Open a bug report with the Bug report issue template.
+- Open a feature request with the Feature request issue template.
+- Include screenshots for UI pull requests.
+- Run the relevant checks before requesting review.
+
+## Security
+
+Please do not open public issues for undisclosed vulnerabilities. See
+[SECURITY.md](./SECURITY.md) for reporting guidance.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).
